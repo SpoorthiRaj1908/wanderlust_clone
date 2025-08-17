@@ -13,7 +13,7 @@ app.use(methodOverride('_method'));
 mongoose.connect(process.env.ATLASDB_URL)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log("Connection error", err));
-let port=8080;
+let port= process.env.PORT || 8080;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const path=require("path");
@@ -71,6 +71,9 @@ app.use((req,res,next)=>{
     res.locals.curruser=req.user;
     next();
 })
+app.get("/", (req, res) => {
+    res.redirect("/listings"); // or render a home page if you have one
+});
 app.listen(port,(req,res)=>{
     console.log("app is listening");
 });
