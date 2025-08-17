@@ -74,9 +74,7 @@ app.use((req,res,next)=>{
 app.get("/", (req, res) => {
     res.redirect("/listings"); // or render a home page if you have one
 });
-app.listen(port,(req,res)=>{
-    console.log("app is listening");
-});
+
 app.use("/listings",listingsRouter);
 app.use("/listings/:id/reviews",reviewsRouter);
 app.use("/",userRouter);
@@ -84,4 +82,6 @@ app.use((err,req,res,next)=>{
     let {status=500,message="smtg went wrong"}=err;
     res.status(status).render("error.ejs",{message});
 });
-
+app.listen(port,(req,res)=>{
+    console.log("app is listening");
+});
